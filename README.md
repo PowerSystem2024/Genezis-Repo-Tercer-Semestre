@@ -2,6 +2,8 @@
 Repositorio para subir ejercitación de las clases del Tercer Semestre de la Tecnicatura en Programación
 
 # Grupo GENEZIS - COHORTE 2024
+
+![Logo Genezis](./logo-genezis-new.png)
 # Integrantes: 
 
 1. Brisa Salvatierra
