@@ -1,8 +1,8 @@
 # Genezis-Repo-Tercer-Semestre
 Repositorio para subir ejercitación de las clases del Tercer Semestre de la Tecnicatura en Programación
 
+# Grupo GENEZIS - COHORTE 2024
 <div align="center">
-  # Grupo GENEZIS - COHORTE 2024
   <img src="./logo-genezis-new.png" alt="Logo Genezis" width="150">
 </div>
 # Integrantes: 
