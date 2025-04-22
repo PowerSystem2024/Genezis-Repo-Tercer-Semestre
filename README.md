@@ -1,18 +1,15 @@
-# Grupo Genezis
+# Genezis-Repo-Tercer-Semestre
+Repositorio para subir ejercitación de las clases del Tercer Semestre de la Tecnicatura en Programación
 
-![Logo del Grupo Genezis](logo-genezis-new.png)
+# Grupo GENEZIS - COHORTE 2024
 
-## Integrantes
+![Logo Genezis](./logo-genezis-new.png)
+# Integrantes: 
 
-- Salvatierra Brisa
-- Alma Fernando
-- Cortez Luciano
-- Fernandez Nicolás
-- Garino Gabriel
-- Quiroga Javier
-- Rodriguez Marcos
-
-Bienvenidos al repositorio del **Grupo Genezis**. Aquí encontrarás todos los proyectos y trabajos realizados por nuestro equipo durante el tercer semestre de la carrera TUP 2024 en UTN - San Rafael.
-
----
-**¡Gracias por visitarnos!**
+1. Brisa Salvatierra
+2. Javier Quiroga
+3. Fernando Alma
+4. Gabriel Garino
+5. Marcos Rodriguez
+6. Luciano Cortez
+7. Nicolas Fernandez
