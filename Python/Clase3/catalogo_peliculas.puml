@@ -1,0 +1,43 @@
+@startuml
+
+package catalogo_peliculas {
+
+  package dominio {
+    class Pelicula {
+      - nombre: str
+      + __str__() : str
+    }
+    note bottom of Pelicula
+      Responsabilidades:
+      - Representa un objeto película
+    end note
+  }
+
+  package servicio {
+    class CatalogoPeliculas {
+      + ruta_archivo: str <<static>>
+      + agregar_pelicula(pelicula: Pelicula) <<static>>
+      + listar_peliculas() <<static>>
+      + eliminar() <<static>>
+    }
+    note bottom of CatalogoPeliculas
+      Responsabilidades:
+      - Realizar las operaciones sobre el archivo peliculas.txt
+    end note
+
+    Pelicula --> CatalogoPeliculas : «agrega»
+  }
+}
+
+package test_catalogo_peliculas.py {
+  note right
+    Responsabilidades:
+    - Contiene un menú con 4 opciones:
+    1) Agregar película
+    2) Listar películas
+    3) Eliminar archivo de películas
+    4) Salir
+  end note
+}
+
+@enduml
