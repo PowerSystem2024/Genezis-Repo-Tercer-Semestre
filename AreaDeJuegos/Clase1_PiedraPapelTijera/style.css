@@ -1,0 +1,70 @@
+/* Estilos para el juego Piedra, Papel o Tijeras */
+
+/* Estilos para todo el cuerpo de la página */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    background-color: #f0f0f0;
+}
+
+/* Estilo para el título principal */
+h1 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Estilo para el contenedor de botones */
+.botones {
+    margin: 20px;
+}
+
+/* Estilos básicos para todos los botones */
+button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Efecto al pasar el mouse sobre los botones */
+button:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para el botón de reinicio (opcional, para diferenciarlo) */
+#reiniciar {
+    background-color: #f44336;
+    margin-top: 20px;
+}
+
+#reiniciar:hover {
+    background-color: #d32f2f;
+}
+
+/* Estilo para el área de resultado */
+#resultado {
+    margin: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #e8e8e8;
+    border-radius: 5px;
+}
+
+/* Estilo para el área de puntuación */
+#puntuacion {
+    margin: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Estilos para los contadores de puntos */
+#puntos-jugador, #puntos-computadora {
+    font-size: 20px;
+    color: #4CAF50;
+}

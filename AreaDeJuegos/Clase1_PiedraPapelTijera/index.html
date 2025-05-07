@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra, Papel o Tijeras</title>
+    <!-- Enlace al archivo CSS externo -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Título del juego -->
+    <h1>Juego de Piedra, Papel o Tijeras</h1>
+    
+    <!-- Explicación del juego -->
+    <p>Selecciona una opción y juega contra la computadora</p>
+    
+    <!-- Botones para seleccionar la opción -->
+    <div class="botones">
+        <button id="piedra">Piedra</button>
+        <button id="papel">Papel</button>
+        <button id="tijeras">Tijeras</button>
+    </div>
+    
+    <!-- Donde se mostrará el resultado -->
+    <div id="resultado">Esperando tu elección...</div>
+    
+    <!-- Puntuación del juego -->
+    <div id="puntuacion">
+        Jugador: <span id="puntos-jugador">0</span> | 
+        Computadora: <span id="puntos-computadora">0</span>
+    </div>
+    
+    <!-- Botón para reiniciar el juego -->
+    <button id="reiniciar">Reiniciar juego</button>
+    
+    <!-- Enlace al archivo JavaScript externo -->
+    <script src="juego.js"></script>
+</body>
+</html>
