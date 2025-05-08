@@ -36,9 +36,9 @@ botonReiniciar.addEventListener('click', function() {
     reiniciarJuego();
 });
 
-// Función para obtener una elección aleatoria para la computadora
+// Función para obtener una eleccion aleatoria para la computadora
 function obtenerEleccionComputadora() {
-    // Esta es la función que genera un número aleatorio para la computadora
+    // esta función es la que se encarga en genera un número aleatorio para la computadora
     
     // Paso 1: Creamos un número aleatorio entre 0 y 1
     const numeroAleatorio = Math.random();
@@ -49,7 +49,7 @@ function obtenerEleccionComputadora() {
     // Paso 3: Redondeamos hacia abajo para obtener 0, 1 o 2
     const numeroRedondeado = Math.floor(numeroMultiplicado);
     
-    // Paso 4: Convertimos el número a una opción (piedra, papel o tijeras)
+    // Paso 4: Convertimos el número a una opcion (piedra, papel o tijeras)
     if (numeroRedondeado === 0) {
         return 'piedra';
     } else if (numeroRedondeado === 1) {
@@ -79,12 +79,12 @@ function jugar(eleccionJugador) {
         (eleccionJugador === 'tijeras' && eleccionComputadora === 'papel')
     ) {
         // Si se cumple alguna de estas condiciones, gana el jugador
-        elementoResultado.innerHTML += '¡Ganaste! 😀';
+        elementoResultado.innerHTML += '¡Ganaste!';
         puntosJugador++;
         elementoPuntosJugador.textContent = puntosJugador;
     } else {
         // En cualquier otro caso, gana la computadora
-        elementoResultado.innerHTML += '¡Perdiste! 😢';
+        elementoResultado.innerHTML += '¡Perdiste!';
         puntosComputadora++;
         elementoPuntosComputadora.textContent = puntosComputadora;
     }
