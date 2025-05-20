@@ -1,0 +1,36 @@
+body {
+    background-color: #000;         /* Fondo negro */
+    color: white;                   /* Texto general blanco */
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+  
+  /* Estilo para el tablero */
+  table {
+    border-collapse: collapse;
+    background-color: white;       /* Fondo del tablero blanco */
+    margin-top: 20px;
+  }
+  
+  /* Cada celda del tablero */
+  td {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;       /* Divisiones en negro */
+    text-align: center;
+    vertical-align: middle;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Estilo especial para las reinas */
+  td.reina {
+    background-color: #50C878 !important;  /* Verde esmeralda */
+    color: white;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(80, 200, 120, 0.8);
+  }
+  
