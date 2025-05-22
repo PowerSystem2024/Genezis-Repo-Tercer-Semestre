@@ -7,7 +7,13 @@
 </head>
 <body>
   <h2>Solución del problema de las N Reinas</h2>
-  <p>Tablero con <strong>N = 8</strong> reinas colocadas sin atacarse.</p>
+  
+  <label for="inputN">Ingrese el valor de N (mínimo 8): </label>
+  <input type="number" id="inputN" min="8" value="8">
+  <button id="btnResolver">Resolver</button>
+
+  <p id="mensaje"></p>
+
   <div id="tablero"></div>
   <p><strong>Posiciones de las reinas:</strong></p>
   <pre id="arreglo"></pre>
@@ -15,4 +21,5 @@
   <script src="reinas.js"></script>
 </body>
 </html>
+
 

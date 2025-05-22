@@ -1,83 +1,86 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const N = 8; // Tamaño del tablero NxN (mínimo 8)
-    const tablero = []; // Matriz para representar visualmente el tablero
-    const posiciones = new Array(N).fill(-1); // Guarda la columna de cada reina por fila
-  
-    // Crear un tablero vacío (llenamos con strings vacíos)
-    for (let i = 0; i < N; i++) {
-      tablero[i] = new Array(N).fill('');
+  const btn = document.getElementById("btnResolver");
+
+  btn.addEventListener("click", () => {
+    const inputN = document.getElementById("inputN");
+    const mensaje = document.getElementById("mensaje");
+    const divTablero = document.getElementById("tablero");
+    const preArreglo = document.getElementById("arreglo");
+
+    let N = parseInt(inputN.value);
+    if (isNaN(N) || N < 8) {
+      mensaje.textContent = "Por favor, ingrese un número válido mayor o igual a 8.";
+      divTablero.innerHTML = "";
+      preArreglo.textContent = "";
+      return;
     }
-  
-    // Verifica si se puede colocar una reina en esa fila y columna
-    function esSeguro(fila, col) {
-      for (let i = 0; i < fila; i++) {
-        // Verifica si hay conflicto en columna o diagonales
-        if (
-          posiciones[i] === col ||                     // Misma columna
-          posiciones[i] - i === col - fila ||          // Misma diagonal \
-          posiciones[i] + i === col + fila             // Misma diagonal /
-        ) {
-          return false; // No es seguro
-        }
-      }
-      return true; // Es seguro colocar la reina aquí
-    }
-  
-    // Función recursiva que intenta colocar reinas fila por fila (usa backtracking)
-    function ponerReinas(fila) {
-      if (fila === N) return true; // Caso base: se colocaron todas las reinas
-  
-      // Recorremos cada columna de la fila actual
-      for (let col = 0; col < N; col++) {
-        if (esSeguro(fila, col)) {
-          posiciones[fila] = col;     // Guardamos la posición
-          tablero[fila][col] = '♛';   // Colocamos visualmente la reina
-  
-          // Llamamos recursivamente para la siguiente fila (backtrack)
-          if (ponerReinas(fila + 1)) return true;
-  
-          // Si no funcionó, retrocedemos y probamos otra opción (backtrack)
-          posiciones[fila] = -1;
-          tablero[fila][col] = '';
-        }
-      }
-  
-      return false; // No se pudo ubicar reina en esta fila (backtrack)
-    }
-  
-    // Función que muestra el tablero en pantalla
-    function mostrar() {
-      const div = document.getElementById("tablero");
+
+    mensaje.textContent = "";
+    preArreglo.textContent = "";
+
+    const tablero = Array.from({ length: N }, () => new Array(N).fill(''));
+    const posiciones = new Array(N).fill(-1);
+
+    function renderizarTablero() {
       let html = "<table>";
-  
       for (let i = 0; i < N; i++) {
         html += "<tr>";
         for (let j = 0; j < N; j++) {
-          if (tablero[i][j] === '♛') {
-            html += "<td class='reina'>♛</td>"; // Casilla con reina
-          } else {
-            html += "<td></td>"; // Casilla vacía
-          }
+          html += tablero[i][j] === '♛'
+            ? "<td class='reina'>♛</td>"
+            : "<td></td>";
         }
         html += "</tr>";
       }
-  
       html += "</table>";
-      div.innerHTML = html;
+      divTablero.innerHTML = html;
     }
-  
-    // Muestra el arreglo de posiciones en pantalla
-    function mostrarPosiciones() {
-      const pre = document.getElementById("arreglo");
-      pre.textContent = JSON.stringify(posiciones);
+
+    function esSeguro(fila, col) {
+      for (let i = 0; i < fila; i++) {
+        if (
+          posiciones[i] === col ||
+          posiciones[i] - i === col - fila ||
+          posiciones[i] + i === col + fila
+        ) {
+          return false;
+        }
+      }
+      return true;
     }
-  
-    // Ejecutamos el algoritmo
-    if (ponerReinas(0)) {
-      mostrar();           // Mostrar tablero con reinas
-      mostrarPosiciones(); // Mostrar posiciones como [0, 4, 7, 5, 2, 6, 1, 3]
-    } else {
-      alert("No se encontró solución.");
+
+    // Algoritmo de backtracking animado
+    async function ponerReinasAnimado(fila) {
+      if (fila === N) return true;
+
+      for (let col = 0; col < N; col++) {
+        if (esSeguro(fila, col)) {
+          posiciones[fila] = col;
+          tablero[fila][col] = '♛';
+          renderizarTablero();
+          await new Promise(res => setTimeout(res, 300)); // Espera para animar
+
+          if (await ponerReinasAnimado(fila + 1)) return true;
+
+          // Retroceso
+          tablero[fila][col] = '';
+          posiciones[fila] = -1;
+          renderizarTablero();
+          await new Promise(res => setTimeout(res, 300));
+        }
+      }
+
+      return false;
     }
+
+    ponerReinasAnimado(0).then(result => {
+      if (result) {
+        preArreglo.textContent = JSON.stringify(posiciones);
+      } else {
+        mensaje.textContent = "No se encontró solución.";
+      }
+    });
   });
+});
+
   
