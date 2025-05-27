@@ -3,34 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salto del Caballo Animado (con Controles)</title>
+    <title>Tour del Caballo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>El Salto del Caballo</h1>
-    
-    <div class="controls">
-        <label for="boardSize">Tamaño (N):</label>
-        <input type="number" id="boardSize" value="8" min="1"> 
-        
-        <label for="animationSpeed">Velocidad (ms):</label>
-        <input type="range" id="animationSpeed" min="10" max="1000" value="150">
-        <span id="speedValue">150 ms</span>
-    </div>
-
-    <div class="action-buttons">
-        <button id="startButton">Iniciar (Rápida)</button>
-        <button id="startAnimatedButton">Iniciar (Animada)</button>
-        <button id="pauseButton" disabled>Pausar</button>
-        <button id="resumeButton" disabled>Reanudar</button>
-        <button id="stopButton" disabled>Detener/Reiniciar</button>
-    </div>
-    
-    <div id="status">
-        
-    </div>
-    <div id="boardOutput">
-        
+    <div class="container">
+        <h1>Tour del Caballo</h1>
+        <div class="controls">
+            <button id="solveButton">Resolver Tour (0,0)</button>
+            <button id="resetButton">Reiniciar</button>
+        </div>
+        <div id="chessboard" class="chessboard"></div>
+        <div id="message" class="message"></div>
     </div>
 
     <script src="caballo.js"></script>

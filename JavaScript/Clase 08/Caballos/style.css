@@ -1,124 +1,157 @@
 body {
-    font-family: sans-serif;
-    line-height: 1.6;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea arriba para que el contenido no se centre verticalmente */
+    min-height: 100vh;
+    background-color: #f0f0f0;
     margin: 20px;
-    background-color: #f4f4f4;
-    color: #333;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
 }
 
 h1 {
-    color: #2c3e50;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-#boardOutput table {
-    border-collapse: collapse;
-    margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+.controls {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-#boardOutput td {
-    width: 35px;
-    height: 35px;
-    border: 1px solid #ccc;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 14px;
+.controls label {
     font-weight: bold;
-    transition: background-color 0.3s ease; /* Transición suave para cambios de color */
+    color: #555;
 }
 
-/* Coloreado alterno para casillas tipo ajedrez */
-#boardOutput tr:nth-child(odd) td:nth-child(even),
-#boardOutput tr:nth-child(even) td:nth-child(odd) {
-    background-color: #e0e0e0; /* Casillas oscuras */
-}
-#boardOutput tr:nth-child(odd) td:nth-child(odd),
-#boardOutput tr:nth-child(even) td:nth-child(even) {
-    background-color: #ffffff; /* Casillas claras */
-}
-
-/* Estilos para la animación del caballo */
-#boardOutput td.visited-knight {
-    background-color: #a2d2ff !important; /* Azul claro para visitadas */
-    color: #1c4b82;
+.controls input[type="number"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 60px;
+    text-align: center;
 }
 
-#boardOutput td.current-knight {
-    background-color: #f7b267 !important; /* Naranja para la actual */
-    color: #7f3f00;
-    font-size: 1.2em;
-    transform: scale(1.1); /* Un poco más grande */
-}
-
-#boardOutput td.backtracking {
-    background-color: #ffcccb !important; /* Rojo claro al retroceder */
-}
-
-
-button {
-    padding: 10px 15px;
-    background-color: #3498db;
+.controls button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    margin: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-button:hover {
-    background-color: #2980b9;
+.controls button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
-button:disabled {
-    background-color: #bdc3c7;
+.controls button:active {
+    transform: translateY(0);
+}
+
+.controls button:disabled {
+    background-color: #cccccc;
     cursor: not-allowed;
 }
 
-input[type="number"], input[type="range"] {
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-right: 5px;
-    vertical-align: middle;
-}
-input[type="number"] {
-    width: 60px;
-}
-input[type="range"] {
-    width: 150px;
+.chessboard {
+    display: grid;
+    border: 2px solid #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+    background-color: #eee; /* Fondo para que se vea el borde */
 }
 
-#status {
-    margin-top: 20px;
-    font-style: italic;
-    min-height: 40px; /* Para evitar saltos de layout */
-}
-#speedValue {
-    display: inline-block;
-    min-width: 50px;
-    vertical-align: middle;
-}
-
-.controls, .action-buttons {
-    margin-bottom: 15px;
+.cell {
+    width: 60px; /* Tamaño por defecto, JS lo ajustará */
+    height: 60px; /* Tamaño por defecto, JS lo ajustará */
     display: flex;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap; 
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    user-select: none; /* Evita selección de texto */
 }
 
-.controls label, .controls input, .controls span {
-    margin-right: 10px;
-    margin-bottom: 5px; 
+.cell.white {
+    background-color: #f0d9b5; /* Cuadros claros */
 }
 
-.action-buttons button {
-    margin-right: 5px;
-    margin-bottom: 5px;
+.cell.black {
+    background-color: #b58863; /* Cuadros oscuros */
+    color: #eee;
 }
 
-#boardOutput td.paused-knight {
-    background-color: #ffda77 !important; 
-    outline: 2px dashed #e69b00;
+.cell.visited {
+    background-color: #4CAF50; /* Verde para celdas visitadas */
+    color: white;
+    transition: background-color 0.1s ease;
+}
+
+.cell.current {
+    background-color: #ffeb3b; /* Amarillo para la posición actual */
+    box-shadow: 0 0 15px rgba(255, 235, 59, 0.7);
+    transform: scale(1.05);
+    z-index: 1; /* Asegura que esté por encima de otras celdas */
+    transition: background-color 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.message {
+    margin-top: 25px;
+    font-size: 1.1em;
+    color: #666;
+    min-height: 25px; /* Para evitar que el layout salte */
+}
+
+.message.error {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.message.success {
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .cell {
+        width: 45px;
+        height: 45px;
+        font-size: 1em;
+    }
+    .controls {
+        flex-direction: column;
+    }
+    .controls button, .controls input {
+        width: 80%;
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cell {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9em;
+    }
 }
