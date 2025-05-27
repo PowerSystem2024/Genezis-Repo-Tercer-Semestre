@@ -31,13 +31,13 @@ Método mostrarOrden(): Recorre todas las computadoras agregadas y muestra su in
 
 Ejemplo de salida:
 
-```yaml
+yaml
 Copiar
 Editar
 Orden: 1, Computadoras:
 Computadora: [idComputadora: 1, nombre: Asus, ...]
 Computadora: [idComputadora: 2, nombre: MSI, ...]
-```
+
 --
 
 💡 Relación con Polimorfismo

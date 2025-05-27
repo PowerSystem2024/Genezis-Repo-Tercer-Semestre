@@ -1,0 +1,124 @@
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    color: #2c3e50;
+}
+
+#boardOutput table {
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#boardOutput td {
+    width: 35px;
+    height: 35px;
+    border: 1px solid #ccc;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Transición suave para cambios de color */
+}
+
+/* Coloreado alterno para casillas tipo ajedrez */
+#boardOutput tr:nth-child(odd) td:nth-child(even),
+#boardOutput tr:nth-child(even) td:nth-child(odd) {
+    background-color: #e0e0e0; /* Casillas oscuras */
+}
+#boardOutput tr:nth-child(odd) td:nth-child(odd),
+#boardOutput tr:nth-child(even) td:nth-child(even) {
+    background-color: #ffffff; /* Casillas claras */
+}
+
+/* Estilos para la animación del caballo */
+#boardOutput td.visited-knight {
+    background-color: #a2d2ff !important; /* Azul claro para visitadas */
+    color: #1c4b82;
+}
+
+#boardOutput td.current-knight {
+    background-color: #f7b267 !important; /* Naranja para la actual */
+    color: #7f3f00;
+    font-size: 1.2em;
+    transform: scale(1.1); /* Un poco más grande */
+}
+
+#boardOutput td.backtracking {
+    background-color: #ffcccb !important; /* Rojo claro al retroceder */
+}
+
+
+button {
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+input[type="number"], input[type="range"] {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+input[type="number"] {
+    width: 60px;
+}
+input[type="range"] {
+    width: 150px;
+}
+
+#status {
+    margin-top: 20px;
+    font-style: italic;
+    min-height: 40px; /* Para evitar saltos de layout */
+}
+#speedValue {
+    display: inline-block;
+    min-width: 50px;
+    vertical-align: middle;
+}
+
+.controls, .action-buttons {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; 
+}
+
+.controls label, .controls input, .controls span {
+    margin-right: 10px;
+    margin-bottom: 5px; 
+}
+
+.action-buttons button {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+#boardOutput td.paused-knight {
+    background-color: #ffda77 !important; 
+    outline: 2px dashed #e69b00;
+}
