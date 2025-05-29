@@ -1,0 +1,61 @@
+<head>
+  <!-- Configuración básica del documento -->
+  <meta charset="UTF-8"> <!-- Codificación de caracteres -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Escalado responsivo para dispositivos móviles -->
+  <title>Selección de Personaje - Avatar</title> <!-- Título de la página -->
+
+  <!-- Preconexión para optimizar la carga de fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Fuentes personalizadas desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Enlace al archivo de estilos CSS -->
+  <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+  <!-- Contenedor principal -->
+  <main class="contenedor">
+    <!-- Título principal -->
+    <h1>La Leyenda de Aang: El Avatar</h1>
+    <!-- Subtítulo -->
+    <h2>Elegí tu personaje</h2>
+
+    <!-- Sección de selección de personajes -->
+    <div class="personajes-seleccion" id="personajesSeleccion">
+      <!-- Botón para seleccionar a Aang -->
+      <button class="personaje" data-nombre="Aang">
+        <img src="assets/aang.png" alt="Aang, Maestro del Aire"> <!-- Imagen de Aang -->
+        <p>Aang (Aire)</p> <!-- Nombre y elemento de Aang -->
+      </button>
+      <!-- Botón para seleccionar a Katara -->
+      <button class="personaje" data-nombre="Katara">
+        <img src="assets/katara.png" alt="Katara, Maestra del Agua"> <!-- Imagen de Katara -->
+        <p>Katara (Agua)</p> <!-- Nombre y elemento de Katara -->
+      </button>
+      <!-- Botón para seleccionar a Toph -->
+      <button class="personaje" data-nombre="Toph">
+        <img src="assets/toph.png" alt="Toph Beifong, Maestra de la Tierra"> <!-- Imagen de Toph -->
+        <p>Toph (Tierra)</p> <!-- Nombre y elemento de Toph -->
+      </button>
+      <!-- Botón para seleccionar a Zuko -->
+      <button class="personaje" data-nombre="Zuko">
+        <img src="assets/zuko.png" alt="Zuko, Maestro del Fuego"> <!-- Imagen de Zuko -->
+        <p>Zuko (Fuego)</p> <!-- Nombre y elemento de Zuko -->
+      </button>
+    </div>
+
+    <!-- Sección de botones de acción -->
+    <div class="acciones">
+      <!-- Botón para confirmar la selección de personaje -->
+      <button id="btnConfirmar" disabled>Confirmar selección</button>
+      <!-- Botón para iniciar el combate -->
+      <button id="btnCombate" disabled>Iniciar combate</button>
+    </div>
+  </main>
+
+  <!-- Archivo de JavaScript para manejar la lógica -->
+  <script src="scripts/script.js"></script>
+</body>
+

@@ -1,0 +1,253 @@
+/* --- Variables de Color Temáticas --- */
+:root {
+  --color-fondo: #f4f0e8; /* Pergamino claro */
+  --color-texto-principal: #4a3b31; /* Marrón oscuro */
+  --color-titulo: #8c5a3b; /* Marrón medio terracota */
+  --color-acento-principal: #c89f61; /* Dorado/Bronce */
+  --color-acento-secundario: #7a6a53; /* Marrón grisáceo */
+  --color-borde-tarjeta: #d1c5b0;
+  --color-tarjeta-seleccionada-borde: #b08d57; /* Dorado más intenso */
+  --color-tarjeta-seleccionada-fondo: #e9e2d5;
+
+  --sombra-suave: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --sombra-profunda: 0 6px 12px rgba(0, 0, 0, 0.15);
+
+  /* Colores para los elementos (si usas textos o fondos específicos) */
+  --color-aire: #ffcc66;
+  --color-agua: #6699ff;
+  --color-tierra: #77cc77;
+  --color-fuego: #ff6666;
+}
+
+/* --- Estilos Globales --- */
+body {
+  font-family: 'Roboto', sans-serif; /* Fuente legible para el cuerpo */
+  background-color: var(--color-fondo);
+  /* Opcional: Textura de fondo sutil */
+  /* background-image: url('assets/textures/parchment.png'); */
+  color: var(--color-texto-principal);
+  margin: 0;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.contenedor {
+  background-color: rgba(255, 255, 255, 0.85); /* Blanco semi-transparente sobre el fondo */
+  backdrop-filter: blur(5px); /* Efecto vidrio esmerilado si el navegador lo soporta */
+  padding: 30px 50px;
+  border-radius: 15px;
+  box-shadow: var(--sombra-profunda), 0 0 0 1px var(--color-borde-tarjeta);
+  text-align: center;
+  max-width: 900px;
+  width: 95%;
+}
+
+h1 {
+  font-family: 'Cinzel', serif; /* Fuente temática para títulos */
+  color: var(--color-titulo);
+  font-size: 3em;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+h2 {
+  font-family: 'Cinzel', serif;
+  color: var(--color-acento-secundario);
+  font-size: 1.8em;
+  font-weight: 400;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+/* --- Selección de Personajes --- */
+.personajes-seleccion {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Layout responsivo */
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.personaje {
+  background-color: #fff;
+  border: 3px solid var(--color-borde-tarjeta);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.0s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transición más suave */
+  box-shadow: var(--sombra-suave);
+  position: relative; /* Para posicionar el ícono del elemento si lo usas */
+
+  /* Reset para <button> */
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--color-texto-principal);
+  outline: none; /* Quitar outline por defecto del botón */
+}
+
+.personaje:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: var(--sombra-profunda);
+  border-color: var(--color-acento-principal);
+}
+
+.personaje.seleccionado {
+  border-color: var(--color-tarjeta-seleccionada-borde);
+  background-color: var(--color-tarjeta-seleccionada-fondo);
+  transform: translateY(-5px) scale(1.08); /* Más destacado */
+  box-shadow: 0 8px 20px rgba(176, 141, 87, 0.4); /* Sombra con color del acento */
+}
+
+.personaje img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 4px solid var(--color-borde-tarjeta);
+  transition: border-color 0.0s ease;
+}
+
+.personaje:hover img,
+.personaje.seleccionado img {
+  border-color: var(--color-acento-principal);
+}
+
+.personaje p {
+  margin: 0;
+  font-weight: 500; /* Un poco más de peso */
+  font-size: 1.2em;
+  color: var(--color-titulo);
+}
+
+/* Opcional: Estilo para el nombre del elemento si se usa un span aparte */
+.personaje .elemento {
+  display: block;
+  font-size: 0.9em;
+  color: var(--color-acento-secundario);
+  margin-top: 5px;
+}
+
+/* Opcional: Para íconos de elementos */
+/*
+.personaje::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.personaje:hover::after,
+.personaje.seleccionado::after {
+  opacity: 1;
+}
+
+.personaje[data-nombre="Aang"]::after { background-image: url('assets/icons/aire.svg'); }
+.personaje[data-nombre="Katara"]::after { background-image: url('assets/icons/agua.svg'); }
+.personaje[data-nombre="Toph"]::after { background-image: url('assets/icons/tierra.svg'); }
+.personaje[data-nombre="Zuko"]::after { background-image: url('assets/icons/fuego.svg'); }
+*/
+
+/* --- Botones de Acciones --- */
+.acciones {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.acciones button {
+  font-family: 'Cinzel', serif; /* Fuente temática también para botones */
+  font-weight: 700;
+  background-color: var(--color-titulo);
+  color: var(--color-fondo); /* Contraste con el fondo del botón */
+  border: 2px solid transparent;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--sombra-suave);
+}
+
+.acciones button:hover:not(:disabled) {
+  background-color: var(--color-acento-principal);
+  color: var(--color-texto-principal);
+  border-color: var(--color-titulo);
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-profunda);
+}
+
+.acciones button:active:not(:disabled) {
+  transform: translateY(0px);
+  box-shadow: var(--sombra-suave);
+}
+
+.acciones button:disabled {
+  background-color: #b0a69a; /* Gris apagado temático */
+  color: #7d736a;
+  cursor: not-allowed;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+/* --- Media Queries para Responsividad (Ejemplo básico) --- */
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 20px 25px;
+  }
+  h1 {
+    font-size: 2.4em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  .personajes-seleccion {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+  .personaje img {
+    width: 100px;
+    height: 100px;
+  }
+  .personaje p {
+    font-size: 1.1em;
+  }
+  .acciones button {
+    padding: 12px 20px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .personajes-seleccion {
+    /* Para pantallas muy pequeñas, quizás una sola columna */
+    grid-template-columns: 1fr;
+  }
+  .personaje {
+    width: auto; /* Ocupar todo el ancho disponible en una columna */
+    max-width: 280px; /* Evitar que sea demasiado ancho en pantallas pequeñas */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .acciones {
+    flex-direction: column; /* Apilar botones en pantallas pequeñas */
+    gap: 10px;
+  }
+  .acciones button {
+    width: 100%;
+  }
+}
