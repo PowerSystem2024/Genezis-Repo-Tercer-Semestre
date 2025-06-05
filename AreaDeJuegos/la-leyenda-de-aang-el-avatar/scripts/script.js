@@ -20,10 +20,10 @@
 
     // Datos de los personajes
     const personajes = {
-      'Aang': { elemento: '💨', fortaleza: 'barrida', debilidad: 'punio' },
-      'Katara': { elemento: '🌊', fortaleza: 'punio', debilidad: 'patada' },
-      'Toph': { elemento: '🪨', fortaleza: 'patada', debilidad: 'barrida' },
-      'Zuko': { elemento: '🔥', fortaleza: 'punio', debilidad: 'barrida' }
+      'Aang': { elemento: '💨', imagen: 'assets/aang.png', fortaleza: 'barrida', debilidad: 'punio' },
+      'Katara': { elemento: '🌊', imagen: 'assets/katara.png', fortaleza: 'punio', debilidad: 'patada' },
+      'Toph': { elemento: '🪨', imagen: 'assets/toph.png', fortaleza: 'patada', debilidad: 'barrida' },
+      'Zuko': { elemento: '🔥', imagen: 'assets/zuko.png', fortaleza: 'punio', debilidad: 'barrida' }
     };
 
     // Datos de los ataques
@@ -165,8 +165,8 @@
         // Configurar interfaz de combate
         document.getElementById('nombreJugador').textContent = personajeJugador;
         document.getElementById('nombrePC').textContent = personajePC;
-        document.getElementById('avatarJugador').textContent = personajes[personajeJugador].elemento;
-        document.getElementById('avatarPC').textContent = personajes[personajePC].elemento;
+        document.getElementById('imagenJugador').src = personajes[personajeJugador].imagen;
+        document.getElementById('imagenPC').src = personajes[personajePC].imagen;
         
         // Cambiar a pantalla de combate
         pantallaSeleccion.style.display = 'none';
