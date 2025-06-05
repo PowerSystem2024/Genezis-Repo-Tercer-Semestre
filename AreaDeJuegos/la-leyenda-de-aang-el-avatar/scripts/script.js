@@ -1,79 +1,235 @@
-// Variable para almacenar el personaje seleccionado por el jugador
-let personajeJugadorSeleccionado = null;
+// Variables globales del juego
+    let personajeJugadorSeleccionado = null;
+    let personajeJugador = null;
+    let personajePC = null;
+    let ataqueSeleccionado = null;
+    let vidaJugador = 100;
+    let vidaPC = 100;
+    let juegoTerminado = false;
 
-// Referencia al contenedor de los personajes
-const seccionPersonajes = document.getElementById('personajesSeleccion');
+    // Referencias a elementos del DOM
+    const pantallaSeleccion = document.getElementById('pantallaSeleccion');
+    const pantallaCombate = document.getElementById('pantallaCombate');
+    const botonesPersonaje = document.querySelectorAll('.personaje');
+    const btnConfirmar = document.getElementById('btnConfirmar');
+    const btnCombate = document.getElementById('btnCombate');
+    const botonesAtaque = document.querySelectorAll('.boton-ataque');
+    const btnAtacar = document.getElementById('btnAtacar');
+    const btnReiniciar = document.getElementById('btnReiniciar');
+    const mensajesCombate = document.getElementById('mensajesCombate');
 
-// Selecciona todos los botones que representan personajes
-const botonesPersonaje = document.querySelectorAll('.personaje'); // Si usaste <button>
+    // Datos de los personajes
+    const personajes = {
+      'Aang': { elemento: '💨', fortaleza: 'barrida', debilidad: 'punio' },
+      'Katara': { elemento: '🌊', fortaleza: 'punio', debilidad: 'patada' },
+      'Toph': { elemento: '🪨', fortaleza: 'patada', debilidad: 'barrida' },
+      'Zuko': { elemento: '🔥', fortaleza: 'punio', debilidad: 'barrida' }
+    };
 
-// Referencias a los botones de acción
-const btnConfirmar = document.getElementById('btnConfirmar'); // Botón para confirmar selección
-const btnCombate = document.getElementById('btnCombate'); // Botón para iniciar el combate
+    // Datos de los ataques
+    const ataques = {
+      'punio': { nombre: 'Puño', dano: 20, icono: '👊' },
+      'patada': { nombre: 'Patada', dano: 25, icono: '🦵' },
+      'barrida': { nombre: 'Barrida', dano: 15, icono: '🌀' }
+    };
 
-// Función para que la PC elija un personaje aleatoriamente
-function aleatoria() {
-  // Lista de nombres de personajes disponibles
-  const personajes = ['Aang', 'Katara', 'Toph', 'Zuko'];
-  
-  // Selecciona un índice aleatorio de la lista
-  const indiceAleatorio = Math.floor(Math.random() * personajes.length);
-  
-  // Obtiene el nombre del personaje seleccionado
-  const personajePC = personajes[indiceAleatorio];
-  
-  // Muestra el personaje elegido por la PC
-  console.log(`La PC ha elegido a ${personajePC}`);
-  alert(`La PC ha elegido a ${personajePC}`);
-  
-  return personajePC; // Devuelve el personaje seleccionado
-}
+    // Función para seleccionar personaje aleatorio para la PC
+    function seleccionarPersonajePC() {
+      const nombresPersonajes = Object.keys(personajes);
+      const indiceAleatorio = Math.floor(Math.random() * nombresPersonajes.length);
+      return nombresPersonajes[indiceAleatorio];
+    }
 
-// Agrega un evento a cada botón de personaje
-botonesPersonaje.forEach(boton => {
-  boton.addEventListener('click', () => {
-    // Elimina la clase 'seleccionado' de todos los botones
-    botonesPersonaje.forEach(btn => btn.classList.remove('seleccionado'));
-    // Agrega la clase 'seleccionado' al botón clickeado
-    boton.classList.add('seleccionado');
+    // Función para calcular daño
+    function calcularDano(atacante, defensor, tipoAtaque) {
+      let dano = ataques[tipoAtaque].dano;
+      
+      // Verificar fortalezas y debilidades
+      if (personajes[atacante].fortaleza === tipoAtaque) {
+        dano *= 1.5; // Daño aumentado por fortaleza
+        return { dano: Math.round(dano), critico: true, tipo: 'fortaleza' };
+      } else if (personajes[atacante].debilidad === tipoAtaque) {
+        dano *= 0.7; // Daño reducido por debilidad
+        return { dano: Math.round(dano), critico: false, tipo: 'debilidad' };
+      }
+      
+      // Agregar variación aleatoria
+      const variacion = 0.8 + Math.random() * 0.4; // Entre 0.8 y 1.2
+      dano *= variacion;
+      
+      return { dano: Math.round(dano), critico: false, tipo: 'normal' };
+    }
 
-    // Guarda el nombre del personaje seleccionado en la variable
-    personajeJugadorSeleccionado = boton.dataset.nombre; 
-    console.log("Personaje elegido:", personajeJugadorSeleccionado); // Muestra en consola el personaje elegido
+    // Función para agregar mensaje al combate
+    function agregarMensaje(texto, critico = false) {
+      const mensaje = document.createElement('div');
+      mensaje.className = `mensaje ${critico ? 'critico' : ''}`;
+      mensaje.textContent = texto;
+      mensajesCombate.appendChild(mensaje);
+      mensajesCombate.scrollTop = mensajesCombate.scrollHeight;
+    }
 
-    // Habilita el botón de confirmar selección
-    btnConfirmar.disabled = false; 
-  });
-});
+    // Función para actualizar barras de vida
+    function actualizarBarrasVida() {
+      const porcentajeJugador = (vidaJugador / 100) * 100;
+      const porcentajePC = (vidaPC / 100) * 100;
+      
+      document.getElementById('vidaJugador').style.width = `${porcentajeJugador}%`;
+      document.getElementById('vidaPC').style.width = `${porcentajePC}%`;
+      document.getElementById('textoVidaJugador').textContent = `${vidaJugador}/100`;
+      document.getElementById('textoVidaPC').textContent = `${vidaPC}/100`;
+    }
 
-// Evento para el botón de confirmar selección
-btnConfirmar.addEventListener('click', () => {
-  if (personajeJugadorSeleccionado) {
-    // Muestra un mensaje de confirmación con el personaje seleccionado
-    alert(`Has confirmado a ${personajeJugadorSeleccionado}!`);
-    // Habilita el botón de combate y deshabilita el de confirmar
-    btnCombate.disabled = false; 
-    btnConfirmar.disabled = true; 
-  } else {
-    // Muestra un mensaje de error si no se seleccionó un personaje
-    alert("Por favor, selecciona un personaje primero.");
-  }
-});
+    // Función para verificar fin del juego
+    function verificarFinJuego() {
+      if (vidaJugador <= 0) {
+        finalizarJuego(false);
+        return true;
+      } else if (vidaPC <= 0) {
+        finalizarJuego(true);
+        return true;
+      }
+      return false;
+    }
 
-// Evento para el botón de iniciar combate
-btnCombate.addEventListener('click', () => {
-  if (personajeJugadorSeleccionado) {
-    // La PC elige su personaje
-    const personajePC = aleatoria();
-    // Muestra un mensaje indicando que el combate ha comenzado
-    alert(`¡Combate iniciado! Tú: ${personajeJugadorSeleccionado} vs PC: ${personajePC}`);
-  } else {
-    // Muestra un mensaje de error si no hay personaje seleccionado
-    alert("Error: Ningún personaje seleccionado para el combate.");
-  }
-});
+    // Función para finalizar el juego
+    function finalizarJuego(victoria) {
+      juegoTerminado = true;
+      botonesAtaque.forEach(btn => btn.disabled = true);
+      btnAtacar.disabled = true;
+      
+      const resultado = document.createElement('div');
+      resultado.className = `resultado-final ${victoria ? 'victoria' : 'derrota'}`;
+      resultado.innerHTML = `
+        <h2>${victoria ? '¡Victoria!' : '¡Derrota!'}</h2>
+        <p>${victoria ? 
+          `¡Felicidades! ${personajeJugador} ha ganado el combate.` : 
+          `${personajePC} ha ganado el combate. ¡Mejor suerte la próxima vez!`
+        }</p>
+      `;
+      
+      pantallaCombate.appendChild(resultado);
+      
+      setTimeout(() => {
+        agregarMensaje(victoria ? '🎉 ¡Has ganado el combate!' : '💀 Has sido derrotado...', !victoria);
+      }, 500);
+    }
 
-// Evento que se ejecuta cuando la página termina de cargar
-window.addEventListener('load', () => {
-  console.log("Página de selección de personaje cargada."); // Mensaje en consola para indicar que la página está lista
-});
+    // Función para realizar ataque de la PC
+    function ataquePC() {
+      const tiposAtaque = Object.keys(ataques);
+      const ataquePC = tiposAtaque[Math.floor(Math.random() * tiposAtaque.length)];
+      
+      const resultadoDano = calcularDano(personajePC, personajeJugador, ataquePC);
+      vidaJugador = Math.max(0, vidaJugador - resultadoDano.dano);
+      
+      let mensaje = `${personajePC} usa ${ataques[ataquePC].nombre} ${ataques[ataquePC].icono} y causa ${resultadoDano.dano} de daño`;
+      
+      if (resultadoDano.tipo === 'fortaleza') {
+        mensaje += ' ¡Ataque crítico!';
+      } else if (resultadoDano.tipo === 'debilidad') {
+        mensaje += ' (Ataque débil)';
+      }
+      
+      agregarMensaje(mensaje, resultadoDano.critico);
+      actualizarBarrasVida();
+      
+      return !verificarFinJuego();
+    }
+
+    // Event listeners para selección de personajes
+    botonesPersonaje.forEach(boton => {
+      boton.addEventListener('click', () => {
+        botonesPersonaje.forEach(btn => btn.classList.remove('seleccionado'));
+        boton.classList.add('seleccionado');
+        personajeJugadorSeleccionado = boton.dataset.nombre;
+        btnConfirmar.disabled = false;
+      });
+    });
+
+    // Event listener para confirmar selección
+    btnConfirmar.addEventListener('click', () => {
+      if (personajeJugadorSeleccionado) {
+        btnCombate.disabled = false;
+        btnConfirmar.disabled = true;
+        agregarMensaje(`Has seleccionado a ${personajeJugadorSeleccionado}!`);
+      }
+    });
+
+    // Event listener para iniciar combate
+    btnCombate.addEventListener('click', () => {
+      if (personajeJugadorSeleccionado) {
+        personajeJugador = personajeJugadorSeleccionado;
+        personajePC = seleccionarPersonajePC();
+        
+        // Configurar interfaz de combate
+        document.getElementById('nombreJugador').textContent = personajeJugador;
+        document.getElementById('nombrePC').textContent = personajePC;
+        document.getElementById('avatarJugador').textContent = personajes[personajeJugador].elemento;
+        document.getElementById('avatarPC').textContent = personajes[personajePC].elemento;
+        
+        // Cambiar a pantalla de combate
+        pantallaSeleccion.style.display = 'none';
+        pantallaCombate.style.display = 'block';
+        
+        // Inicializar combate
+        agregarMensaje(`¡Combate iniciado! ${personajeJugador} vs ${personajePC}`);
+        agregarMensaje(`Fortaleza de ${personajeJugador}: ${ataques[personajes[personajeJugador].fortaleza].nombre}`);
+        agregarMensaje(`Debilidad de ${personajeJugador}: ${ataques[personajes[personajeJugador].debilidad].nombre}`);
+      }
+    });
+
+    // Event listeners para botones de ataque
+    botonesAtaque.forEach(boton => {
+      boton.addEventListener('click', () => {
+        if (juegoTerminado) return;
+        
+        botonesAtaque.forEach(btn => btn.classList.remove('seleccionado'));
+        boton.classList.add('seleccionado');
+        ataqueSeleccionado = boton.dataset.ataque;
+        btnAtacar.disabled = false;
+      });
+    });
+
+    // Event listener para atacar
+    btnAtacar.addEventListener('click', () => {
+      if (!ataqueSeleccionado || juegoTerminado) return;
+      
+      // Ataque del jugador
+      const resultadoDano = calcularDano(personajeJugador, personajePC, ataqueSeleccionado);
+      vidaPC = Math.max(0, vidaPC - resultadoDano.dano);
+      
+      let mensaje = `Usas ${ataques[ataqueSeleccionado].nombre} ${ataques[ataqueSeleccionado].icono} y causas ${resultadoDano.dano} de daño`;
+      
+      if (resultadoDano.tipo === 'fortaleza') {
+        mensaje += ' ¡Ataque crítico!';
+      } else if (resultadoDano.tipo === 'debilidad') {
+        mensaje += ' (Ataque débil)';
+      }
+      
+      agregarMensaje(mensaje, resultadoDano.critico);
+      actualizarBarrasVida();
+      
+      // Verificar si la PC fue derrotada
+      if (!verificarFinJuego()) {
+        // Turno de la PC
+        setTimeout(() => {
+          if (ataquePC()) {
+            // Resetear selección para el siguiente turno
+            botonesAtaque.forEach(btn => btn.classList.remove('seleccionado'));
+            ataqueSeleccionado = null;
+            btnAtacar.disabled = true;
+          }
+        }, 1500);
+      }
+    });
+
+    // Event listener para reiniciar
+    btnReiniciar.addEventListener('click', () => {
+      location.reload();
+    });
+
+    // Inicialización
+    window.addEventListener('load', () => {
+      console.log("Juego Avatar cargado y listo!");
+    });
