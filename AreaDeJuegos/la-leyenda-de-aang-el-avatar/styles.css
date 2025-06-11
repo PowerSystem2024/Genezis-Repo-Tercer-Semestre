@@ -382,7 +382,113 @@ h2 {
   border-color: var(--color-vida-pc);
 }
 
-/* --- Responsividad --- */
+/* --- Modal de Reglas --- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+.modal-contenido {
+  background-color: var(--color-fondo);
+  margin: 5% auto;
+  padding: 30px;
+  border: 2px solid var(--color-acento-principal);
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--sombra-profunda);
+}
+
+.cerrar-modal {
+  color: var(--color-texto-principal);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.cerrar-modal:hover {
+  color: var(--color-acento-principal);
+}
+
+.reglas-contenido {
+  margin-top: 20px;
+}
+
+.reglas-contenido h3 {
+  color: var(--color-titulo);
+  margin: 20px 0 10px;
+  font-family: 'Cinzel', serif;
+}
+
+.reglas-contenido ol {
+  padding-left: 20px;
+  margin: 15px 0;
+}
+
+.reglas-contenido li {
+  margin: 10px 0;
+}
+
+.sistema-ataques {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border: 1px solid var(--color-borde-tarjeta);
+}
+
+.sistema-ataques p {
+  margin: 8px 0;
+  font-weight: 500;
+}
+
+.bonus-info {
+  background-color: rgba(200, 159, 97, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  border: 1px solid var(--color-acento-principal);
+}
+
+.boton-reglas {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: var(--color-acento-secundario);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.boton-reglas:hover {
+  background-color: var(--color-acento-principal);
+  transform: translateY(-2px);
+}
+
+.icono-reglas {
+  font-size: 1.2em;
+}
+
 @media (max-width: 768px) {
   .contenedor {
     padding: 20px 25px;
@@ -404,6 +510,17 @@ h2 {
   .boton-ataque {
     min-width: 100px;
     padding: 12px 20px;
+  }
+  
+  .modal-contenido {
+    margin: 10% auto;
+    padding: 20px;
+    width: 95%;
+  }
+  
+  .pantalla-combate .boton-reglas {
+    position: static;
+    margin: 10px auto 20px;
   }
 }
 

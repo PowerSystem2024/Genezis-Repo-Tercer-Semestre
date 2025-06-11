@@ -18,6 +18,12 @@
     const btnReiniciar = document.getElementById('btnReiniciar');
     const mensajesCombate = document.getElementById('mensajesCombate');
 
+    // Referencias para el modal de reglas
+    const modalReglas = document.getElementById('modalReglas');
+    const btnReglas = document.getElementById('btnReglas');
+    const btnReglasCombate = document.getElementById('btnReglasCombate');
+    const cerrarModal = document.querySelector('.cerrar-modal');
+
     // Datos de los personajes
     const personajes = {
       'Aang': { elemento: '💨', imagen: 'assets/aang.png', fortaleza: 'barrida', debilidad: 'punio' },
@@ -227,6 +233,32 @@
     // Event listener para reiniciar
     btnReiniciar.addEventListener('click', () => {
       location.reload();
+    });
+
+    // Event listeners para el modal
+    btnReglas.addEventListener('click', () => {
+      modalReglas.style.display = 'block';
+    });
+
+    btnReglasCombate.addEventListener('click', () => {
+      modalReglas.style.display = 'block';
+    });
+
+    cerrarModal.addEventListener('click', () => {
+      modalReglas.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+      if (event.target === modalReglas) {
+        modalReglas.style.display = 'none';
+      }
+    });
+
+    // Tecla Escape para cerrar el modal
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modalReglas.style.display === 'block') {
+        modalReglas.style.display = 'none';
+      }
     });
 
     // Inicialización

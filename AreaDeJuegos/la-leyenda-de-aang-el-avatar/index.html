@@ -14,9 +14,41 @@
 </head>
 <body>
   <main class="contenedor">
+    <!-- Modal de Reglas -->
+    <div id="modalReglas" class="modal">
+      <div class="modal-contenido">
+        <span class="cerrar-modal">&times;</span>
+        <h2>Reglas del Juego</h2>
+        <div class="reglas-contenido">
+          <h3>🎮 Cómo Jugar</h3>
+          <ol>
+            <li>Primero, selecciona tu personaje favorito.</li>
+            <li>Cada jugador (tú y la PC) tiene 100 puntos de vida.</li>
+            <li>Por turnos, elige uno de los tres ataques disponibles.</li>
+          </ol>
+
+          <h3>⚔️ Sistema de Ataques</h3>
+          <div class="sistema-ataques">
+            <p>🦵 Patada vence a 👊 Puño</p>
+            <p>👊 Puño vence a 🌀 Barrida</p>
+            <p>🌀 Barrida vence a 🦵 Patada</p>
+          </div>
+
+          <div class="bonus-info">
+            <p>💥 Cuando uses un ataque que es fuerte contra el enemigo, ¡causarás más daño!</p>
+            <p>⚠️ Cuando uses un ataque débil, causarás menos daño.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Pantalla de Selección -->
     <div id="pantallaSeleccion" class="pantalla-seleccion">
       <h1>La Leyenda de Aang: El Avatar</h1>
+      <button id="btnReglas" class="boton-reglas">
+        <span class="icono-reglas">❔</span>
+        Reglas del Juego
+      </button>
       <h2>Elegí tu personaje</h2>
 
       <div class="personajes-seleccion" id="personajesSeleccion">
@@ -55,6 +87,10 @@
     <!-- Pantalla de Combate -->
     <div id="pantallaCombate" class="pantalla-combate">
       <h1>¡Combate Avatar!</h1>
+      <button id="btnReglasCombate" class="boton-reglas">
+        <span class="icono-reglas">❔</span>
+        Reglas del Juego
+      </button>
       
       <div class="info-combate">
         <div class="luchador">
