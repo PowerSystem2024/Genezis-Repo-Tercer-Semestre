@@ -41,30 +41,19 @@ body {
   width: 95%;
 }
 
-h1 {
+h1, h2 {
   font-family: 'Cinzel', serif;
   color: var(--color-titulo);
-  font-size: 3em;
-  font-weight: 700;
-  margin-bottom: 15px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-h2 {
-  font-family: 'Cinzel', serif;
-  color: var(--color-acento-secundario);
-  font-size: 1.8em;
-  font-weight: 400;
-  margin-bottom: 40px;
-  letter-spacing: 1px;
-}
+h1 { font-size: 3em; font-weight: 700; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+h2 { font-size: 1.8em; font-weight: 400; margin-bottom: 40px; letter-spacing: 1px; }
 
 /* --- Selección de Personajes --- */
 .personajes-seleccion {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 25px;
-  margin-bottom: 40px;
 }
 
 .personaje {
@@ -72,479 +61,74 @@ h2 {
   border: 3px solid var(--color-borde-tarjeta);
   border-radius: 10px;
   padding: 20px;
-  text-align: center;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s ease;
   box-shadow: var(--sombra-suave);
-  font-family: inherit;
-  font-size: inherit;
-  color: var(--color-texto-principal);
   outline: none;
 }
+.personaje:hover:not(:disabled) { transform: translateY(-8px) scale(1.03); box-shadow: var(--sombra-profunda); border-color: var(--color-acento-principal); }
+.personaje.seleccionado { border-color: var(--color-tarjeta-seleccionada-borde); background-color: var(--color-tarjeta-seleccionada-fondo); transform: translateY(-5px) scale(1.08); box-shadow: 0 8px 20px rgba(176, 141, 87, 0.4); }
+.personaje:disabled { cursor: not-allowed; opacity: 0.7; }
+.personaje-avatar { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 15px; border: 4px solid var(--color-borde-tarjeta); transition: border-color 0.3s ease; }
+.personaje-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; transition: transform 0.3s ease; }
+.personaje:hover:not(:disabled) .personaje-avatar img { transform: scale(1.1); }
+.personaje p { margin: 0; font-weight: 500; font-size: 1.2em; color: var(--color-titulo); }
 
-.personaje:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: var(--sombra-profunda);
-  border-color: var(--color-acento-principal);
-}
+/* --- Estilos para la Slot Machine de la PC (dentro del Modal) --- */
+.pc-selection-area { background-color: #4a3b31; border-radius: 10px; padding: 15px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); margin-top: 20px; }
+.pc-selection-window { height: 120px; overflow: hidden; border-radius: 50%; border: 4px solid var(--color-borde-tarjeta); margin: 0 auto; width: 120px; }
+.pc-character-reel { transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1); }
+.pc-character-reel img { width: 100%; height: 100%; object-fit: cover; }
+.oponente-revelado-texto { margin-top: 20px; font-family: 'Cinzel', serif; font-size: 1.5em; color: var(--color-titulo); height: 1.5em; transition: opacity 0.5s ease-in-out; opacity: 0; }
+.oponente-revelado-texto.visible { opacity: 1; }
 
-.personaje.seleccionado {
-  border-color: var(--color-tarjeta-seleccionada-borde);
-  background-color: var(--color-tarjeta-seleccionada-fondo);
-  transform: translateY(-5px) scale(1.08);
-  box-shadow: 0 8px 20px rgba(176, 141, 87, 0.4);
-}
-
-.personaje-avatar {
-  width: 120px;
-  height: 120px;
-  background: linear-gradient(135deg, var(--color-acento-principal), var(--color-titulo));
-  border-radius: 50%;
-  margin: 0 auto 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3em;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  border: 4px solid var(--color-borde-tarjeta);
-  transition: border-color 0.3s ease;
-}
-
-.personaje-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  transition: transform 0.3s ease;
-}
-
-.personaje:hover .personaje-avatar img {
-  transform: scale(1.1);
-}
-
-.personaje.seleccionado .personaje-avatar img {
-  transform: scale(1.15);
-}
-
-.personaje:hover .personaje-avatar,
-.personaje.seleccionado .personaje-avatar {
-  border-color: var(--color-acento-principal);
-}
-
-.personaje p {
-  margin: 0;
-  font-weight: 500;
-  font-size: 1.2em;
-  color: var(--color-titulo);
-}
-
-/* --- Botones de Acciones --- */
-.acciones {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.acciones button {
-  font-family: 'Cinzel', serif;
-  font-weight: 700;
-  background-color: var(--color-titulo);
-  color: var(--color-fondo);
-  border: 2px solid transparent;
-  padding: 15px 30px;
-  font-size: 1.1em;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.25s ease-out;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: var(--sombra-suave);
-}
-
-.acciones button:hover:not(:disabled) {
-  background-color: var(--color-acento-principal);
-  color: var(--color-texto-principal);
-  border-color: var(--color-titulo);
-  transform: translateY(-3px);
-  box-shadow: var(--sombra-profunda);
-}
-
-.acciones button:disabled {
-  background-color: #b0a69a;
-  color: #7d736a;
-  cursor: not-allowed;
-  box-shadow: none;
-  border-color: transparent;
-}
+/* --- Acciones y Botones --- */
+.acciones { margin-top: 40px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.acciones button { font-family: 'Cinzel', serif; font-weight: 700; background-color: var(--color-titulo); color: var(--color-fondo); border: 2px solid transparent; padding: 15px 30px; font-size: 1.1em; border-radius: 8px; cursor: pointer; transition: all 0.25s ease-out; text-transform: uppercase; }
+.acciones button:hover:not(:disabled) { background-color: var(--color-acento-principal); color: var(--color-texto-principal); border-color: var(--color-titulo); transform: translateY(-3px); }
+.acciones button:disabled { background-color: #b0a69a; color: #7d736a; cursor: not-allowed; }
 
 /* --- Pantalla de Combate --- */
-.pantalla-combate {
-  display: none;
-}
+.pantalla-combate { display: none; }
+.combate-principal { display: flex; gap: 30px; align-items: flex-start; }
+.combate-principal .info-combate { flex: 3; }
+.combate-principal .mensajes-combate { flex: 2; margin: 0; align-self: stretch; }
+.info-combate { display: grid; grid-template-columns: 1fr; gap: 30px; }
+.luchador { background-color: rgba(255, 255, 255, 0.9); border: 2px solid var(--color-borde-tarjeta); border-radius: 10px; padding: 20px; box-shadow: var(--sombra-suave); }
+.luchador h3 { font-size: 1.5em; margin: 0 0 15px 0; }
+.avatar-combate { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 15px; overflow: hidden; }
+.avatar-combate img { width: 100%; height: 100%; object-fit: cover; }
+.barra-vida { background-color: #ddd; border-radius: 10px; height: 20px; margin: 10px 0; overflow: hidden; position: relative; }
+.vida-actual { height: 100%; border-radius: 10px; transition: width 0.5s ease; }
+.luchador:first-child .vida-actual { background-color: var(--color-vida-jugador); }
+.luchador:last-child .vida-actual { background-color: var(--color-vida-pc); }
+.vida-texto { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; font-size: 0.9em; }
+.ataques-container { margin: 20px 0; order: -1; }
+.botones-ataque { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+.boton-ataque { background-color: var(--color-acento-secundario); color: white; border: 3px solid transparent; padding: 15px 25px; border-radius: 10px; cursor: pointer; font-family: 'Cinzel', serif; font-size: 1em; display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 120px; }
+.boton-ataque:hover:not(:disabled) { background-color: var(--color-acento-principal); transform: translateY(-3px); }
+.boton-ataque.seleccionado { border-color: var(--color-ataque-seleccionado); background-color: var(--color-ataque-seleccionado); }
+.boton-ataque:disabled { background-color: #999; cursor: not-allowed; opacity: 0.6; }
+.icono-ataque { font-size: 1.5em; }
+.acciones-combate { margin: 0 0 30px 0; }
+.mensajes-combate { background-color: rgba(255, 255, 255, 0.9); border: 2px solid var(--color-borde-tarjeta); border-radius: 10px; padding: 20px; max-height: 400px; overflow-y: auto; text-align: left; }
+.mensajes-combate h4 { text-align: center; margin: 0 0 15px 0; }
+.mensaje { background-color: var(--color-fondo); padding: 10px 15px; margin: 5px 0; border-radius: 5px; border-left: 4px solid var(--color-acento-principal); }
+.mensaje.critico { border-left-color: #ff4444; background-color: #ffebee; font-weight: bold; }
+.resultado-final { background-color: rgba(255, 255, 255, 0.95); border-radius: 15px; padding: 30px; margin: 20px 0; border: 3px solid var(--color-acento-principal); }
+.resultado-final.victoria { border-color: var(--color-vida-jugador); }
+.resultado-final.derrota { border-color: var(--color-vida-pc); }
 
-.info-combate {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  margin-bottom: 30px;
-  align-items: center;
-}
+/* --- Modal --- */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); }
+.modal-contenido { background-color: var(--color-fondo); margin: 10% auto; padding: 30px; border: 2px solid var(--color-acento-principal); border-radius: 15px; width: 90%; max-width: 600px; position: relative; }
+.cerrar-modal { color: var(--color-texto-principal); float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.boton-reglas { position: absolute; top: 20px; right: 20px; background-color: var(--color-acento-secundario); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+.boton-reglas:hover { background-color: var(--color-acento-principal); transform: translateY(-2px); }
+.icono-reglas { font-size: 1.2em; }
 
-.luchador {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid var(--color-borde-tarjeta);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: var(--sombra-suave);
-}
-
-.luchador h3 {
-  font-family: 'Cinzel', serif;
-  color: var(--color-titulo);
-  margin: 0 0 15px 0;
-  font-size: 1.5em;
-}
-
-.avatar-combate {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, var(--color-acento-principal), var(--color-titulo));
-  border-radius: 50%;
-  margin: 0 auto 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; /* Agregado para contener la imagen */
-}
-
-.avatar-combate img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.avatar-combate:hover img {
-  transform: scale(1.1);
-}
-
-.barra-vida {
-  background-color: #ddd;
-  border-radius: 10px;
-  height: 20px;
-  margin: 10px 0;
-  overflow: hidden;
-  position: relative;
-}
-
-.vida-actual {
-  height: 100%;
-  border-radius: 10px;
-  transition: width 0.5s ease;
-  position: relative;
-}
-
-.luchador:first-child .vida-actual {
-  background-color: var(--color-vida-jugador);
-}
-
-.luchador:last-child .vida-actual {
-  background-color: var(--color-vida-pc);
-}
-
-.vida-texto {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-  font-size: 0.9em;
-}
-
-/* --- Botones de Ataque --- */
-.ataques-container {
-  margin: 30px 0;
-}
-
-.ataques-container h3 {
-  font-family: 'Cinzel', serif;
-  color: var(--color-titulo);
-  margin-bottom: 20px;
-  font-size: 1.4em;
-}
-
-.botones-ataque {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.boton-ataque {
-  background-color: var(--color-acento-secundario);
-  color: white;
-  border: 3px solid transparent;
-  padding: 15px 25px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-family: 'Cinzel', serif;
-  font-weight: 600;
-  font-size: 1em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-  box-shadow: var(--sombra-suave);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  min-width: 120px;
-}
-
-.boton-ataque:hover:not(:disabled) {
-  background-color: var(--color-acento-principal);
-  transform: translateY(-3px);
-  box-shadow: var(--sombra-profunda);
-}
-
-.boton-ataque.seleccionado {
-  border-color: var(--color-ataque-seleccionado);
-  background-color: var(--color-ataque-seleccionado);
-  transform: translateY(-2px);
-}
-
-.boton-ataque:disabled {
-  background-color: #999;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.icono-ataque {
-  font-size: 1.5em;
-}
-
-/* --- Mensajes de Combate --- */
-.mensajes-combate {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid var(--color-borde-tarjeta);
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px 0;
-  min-height: 100px;
-  box-shadow: var(--sombra-suave);
-}
-
-.mensajes-combate h4 {
-  font-family: 'Cinzel', serif;
-  color: var(--color-titulo);
-  margin: 0 0 15px 0;
-}
-
-.mensaje {
-  background-color: var(--color-fondo);
-  padding: 10px 15px;
-  margin: 5px 0;
-  border-radius: 5px;
-  border-left: 4px solid var(--color-acento-principal);
-  font-size: 0.95em;
-}
-
-.mensaje.critico {
-  border-left-color: #ff4444;
-  background-color: #ffebee;
-}
-
-/* --- Pantalla de Resultado --- */
-.resultado-final {
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  padding: 30px;
-  margin: 20px 0;
-  box-shadow: var(--sombra-profunda);
-  border: 3px solid var(--color-acento-principal);
-}
-
-.resultado-final h2 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
-}
-
-.resultado-final.victoria {
-  border-color: var(--color-vida-jugador);
-}
-
-.resultado-final.derrota {
-  border-color: var(--color-vida-pc);
-}
-
-/* --- Modal de Reglas --- */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
-}
-
-.modal-contenido {
-  background-color: var(--color-fondo);
-  margin: 5% auto;
-  padding: 30px;
-  border: 2px solid var(--color-acento-principal);
-  border-radius: 15px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: var(--sombra-profunda);
-}
-
-.cerrar-modal {
-  color: var(--color-texto-principal);
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.cerrar-modal:hover {
-  color: var(--color-acento-principal);
-}
-
-.reglas-contenido {
-  margin-top: 20px;
-}
-
-.reglas-contenido h3 {
-  color: var(--color-titulo);
-  margin: 20px 0 10px;
-  font-family: 'Cinzel', serif;
-}
-
-.reglas-contenido ol {
-  padding-left: 20px;
-  margin: 15px 0;
-}
-
-.reglas-contenido li {
-  margin: 10px 0;
-}
-
-.sistema-ataques {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 15px;
-  border-radius: 10px;
-  margin: 15px 0;
-  border: 1px solid var(--color-borde-tarjeta);
-}
-
-.sistema-ataques p {
-  margin: 8px 0;
-  font-weight: 500;
-}
-
-.bonus-info {
-  background-color: rgba(200, 159, 97, 0.1);
-  padding: 15px;
-  border-radius: 10px;
-  margin-top: 15px;
-  border: 1px solid var(--color-acento-principal);
-}
-
-.boton-reglas {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--color-acento-secundario);
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'Cinzel', serif;
-  font-size: 0.9em;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-}
-
-.boton-reglas:hover {
-  background-color: var(--color-acento-principal);
-  transform: translateY(-2px);
-}
-
-.icono-reglas {
-  font-size: 1.2em;
-}
-
+/* --- Media Queries --- */
 @media (max-width: 768px) {
-  .contenedor {
-    padding: 20px 25px;
-  }
-  
-  h1 {
-    font-size: 2.4em;
-  }
-  
-  .info-combate {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .botones-ataque {
-    gap: 10px;
-  }
-  
-  .boton-ataque {
-    min-width: 100px;
-    padding: 12px 20px;
-  }
-  
-  .modal-contenido {
-    margin: 10% auto;
-    padding: 20px;
-    width: 95%;
-  }
-  
-  .pantalla-combate .boton-reglas {
-    position: static;
-    margin: 10px auto 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .personajes-seleccion {
-    grid-template-columns: 1fr;
-  }
-  
-  .acciones {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .acciones button {
-    width: 100%;
-  }
-  
-  .botones-ataque {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .boton-ataque {
-    width: 80%;
-    max-width: 200px;
-  }
+  .combate-principal { flex-direction: column; gap: 20px; }
+  .pantalla-combate .boton-reglas { position: static; margin: 10px auto 20px; }
 }

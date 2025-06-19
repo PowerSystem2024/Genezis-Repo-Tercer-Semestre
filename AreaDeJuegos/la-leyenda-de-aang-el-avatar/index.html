@@ -4,17 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Selección de Personaje - Avatar</title>
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  
-  <!-- Enlace al archivo CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="contenedor">
-    <!-- Modal de Reglas -->
     <div id="modalReglas" class="modal">
       <div class="modal-contenido">
         <span class="cerrar-modal">&times;</span>
@@ -22,18 +18,16 @@
         <div class="reglas-contenido">
           <h3>🎮 Cómo Jugar</h3>
           <ol>
-            <li>Primero, selecciona tu personaje favorito.</li>
+            <li>Primero, selecciona tu personaje favorito. La PC elegirá a su luchador al azar.</li>
             <li>Cada jugador (tú y la PC) tiene 100 puntos de vida.</li>
             <li>Por turnos, elige uno de los tres ataques disponibles.</li>
           </ol>
-
           <h3>⚔️ Sistema de Ataques</h3>
           <div class="sistema-ataques">
             <p>🦵 Patada vence a 👊 Puño</p>
             <p>👊 Puño vence a 🌀 Barrida</p>
             <p>🌀 Barrida vence a 🦵 Patada</p>
           </div>
-
           <div class="bonus-info">
             <p>💥 Cuando uses un ataque que es fuerte contra el enemigo, ¡causarás más daño!</p>
             <p>⚠️ Cuando uses un ataque débil, causarás menos daño.</p>
@@ -42,113 +36,68 @@
       </div>
     </div>
 
-    <!-- Pantalla de Selección -->
+    <div id="modalOponente" class="modal">
+      <div class="modal-contenido">
+        <h2>Eligiendo Oponente...</h2>
+        <div class="pc-selection-area">
+          <div class="pc-selection-window">
+            <div id="pc-character-reel" class="pc-character-reel">
+              </div>
+          </div>
+        </div>
+        <p id="oponente-revelado-texto" class="oponente-revelado-texto"></p>
+      </div>
+    </div>
+
     <div id="pantallaSeleccion" class="pantalla-seleccion">
       <h1>La Leyenda de Aang: El Avatar</h1>
-      <button id="btnReglas" class="boton-reglas">
-        <span class="icono-reglas">❔</span>
-        Reglas del Juego
-      </button>
+      <button id="btnReglas" class="boton-reglas"><span class="icono-reglas">❔</span> Reglas del Juego</button>
       <h2>Elegí tu personaje</h2>
-
       <div class="personajes-seleccion" id="personajesSeleccion">
-        <button class="personaje" data-nombre="Aang" data-elemento="💨">
-          <div class="personaje-avatar">
-            <img src="assets/aang.png" alt="Aang">
-          </div>
-          <p>Aang (Aire)</p>
-        </button>
-        <button class="personaje" data-nombre="Katara" data-elemento="🌊">
-          <div class="personaje-avatar">
-            <img src="assets/katara.png" alt="Katara">
-          </div>
-          <p>Katara (Agua)</p>
-        </button>
-        <button class="personaje" data-nombre="Toph" data-elemento="🪨">
-          <div class="personaje-avatar">
-            <img src="assets/toph.png" alt="Toph">
-          </div>
-          <p>Toph (Tierra)</p>
-        </button>
-        <button class="personaje" data-nombre="Zuko" data-elemento="🔥">
-          <div class="personaje-avatar">
-            <img src="assets/zuko.png" alt="Zuko">
-          </div>
-          <p>Zuko (Fuego)</p>
-        </button>
+        <button class="personaje" data-nombre="Aang"><div class="personaje-avatar"><img src="assets/aang.png" alt="Aang"></div><p>Aang</p></button>
+        <button class="personaje" data-nombre="Katara"><div class="personaje-avatar"><img src="assets/katara.png" alt="Katara"></div><p>Katara</p></button>
+        <button class="personaje" data-nombre="Toph"><div class="personaje-avatar"><img src="assets/toph.png" alt="Toph"></div><p>Toph</p></button>
+        <button class="personaje" data-nombre="Zuko"><div class="personaje-avatar"><img src="assets/zuko.png" alt="Zuko"></div><p>Zuko</p></button>
       </div>
-
       <div class="acciones">
-        <button id="btnConfirmar" disabled>Confirmar selección</button>
         <button id="btnCombate" disabled>Iniciar combate</button>
       </div>
     </div>
 
-    <!-- Pantalla de Combate -->
     <div id="pantallaCombate" class="pantalla-combate">
       <h1>¡Combate Avatar!</h1>
-      <button id="btnReglasCombate" class="boton-reglas">
-        <span class="icono-reglas">❔</span>
-        Reglas del Juego
-      </button>
-      
-      <div class="info-combate">
-        <div class="luchador">
-          <h3 id="nombreJugador">Jugador</h3>
-          <div class="avatar-combate" id="avatarJugador">
-            <img id="imagenJugador" src="" alt="Avatar jugador">
-          </div>
-          <div class="barra-vida">
-            <div class="vida-actual" id="vidaJugador" style="width: 100%;">
-              <div class="vida-texto" id="textoVidaJugador">100/100</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="luchador">
-          <h3 id="nombrePC">PC</h3>
-          <div class="avatar-combate" id="avatarPC">
-            <img id="imagenPC" src="" alt="Avatar PC">
-          </div>
-          <div class="barra-vida">
-            <div class="vida-actual" id="vidaPC" style="width: 100%;">
-              <div class="vida-texto" id="textoVidaPC">100/100</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <button id="btnReglasCombate" class="boton-reglas"><span class="icono-reglas">❔</span> Reglas del Juego</button>
       <div class="ataques-container">
-        <h3>Selecciona tu ataque:</h3>
         <div class="botones-ataque">
-          <button class="boton-ataque" id="btnPunio" data-ataque="punio">
-            <div class="icono-ataque">👊</div>
-            <span>Puño</span>
-          </button>
-          <button class="boton-ataque" id="btnPatada" data-ataque="patada">
-            <div class="icono-ataque">🦵</div>
-            <span>Patada</span>
-          </button>
-          <button class="boton-ataque" id="btnBarrida" data-ataque="barrida">
-            <div class="icono-ataque">🌀</div>
-            <span>Barrida</span>
-          </button>
+          <button class="boton-ataque" id="btnPunio" data-ataque="punio"><div class="icono-ataque">👊</div><span>Puño</span></button>
+          <button class="boton-ataque" id="btnPatada" data-ataque="patada"><div class="icono-ataque">🦵</div><span>Patada</span></button>
+          <button class="boton-ataque" id="btnBarrida" data-ataque="barrida"><div class="icono-ataque">🌀</div><span>Barrida</span></button>
         </div>
       </div>
-
-      <div class="mensajes-combate">
-        <h4>Registro de Combate:</h4>
-        <div id="mensajesCombate"></div>
-      </div>
-
-      <div class="acciones">
+      <div class="acciones acciones-combate">
         <button id="btnAtacar" disabled>¡Atacar!</button>
         <button id="btnReiniciar">Nuevo Juego</button>
       </div>
+      <div class="combate-principal">
+        <div class="info-combate">
+          <div class="luchador">
+            <h3 id="nombreJugador">Jugador</h3>
+            <div class="avatar-combate" id="avatarJugador"><img id="imagenJugador" src="" alt="Avatar jugador"></div>
+            <div class="barra-vida"><div class="vida-actual" id="vidaJugador" style="width: 100%;"><div class="vida-texto" id="textoVidaJugador">100/100</div></div></div>
+          </div>
+          <div class="luchador">
+            <h3 id="nombrePC">PC</h3>
+            <div class="avatar-combate" id="avatarPC"><img id="imagenPC" src="" alt="Avatar PC"></div>
+            <div class="barra-vida"><div class="vida-actual" id="vidaPC" style="width: 100%;"><div class="vida-texto" id="textoVidaPC">100/100</div></div></div>
+          </div>
+        </div>
+        <div class="mensajes-combate">
+          <h4>Registro de Combate:</h4>
+          <div id="mensajesCombate"></div>
+        </div>
+      </div>
     </div>
   </main>
-
-  <!-- Enlace al archivo JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
